@@ -1,9 +1,9 @@
 from buses import buses_to_dicts, filter_on_filed, location
-from cosax import EventHandler
-from cofollow import printer
-from xml.sax import parse
+from coexpat import expat_parse
 
-handler = EventHandler(
+
+expat_parse(
+    open("bus.xml", "rb"),
     buses_to_dicts(
         filter_on_filed(
             "id", "7574",
@@ -11,4 +11,3 @@ handler = EventHandler(
         )
     )
 )
-parse("bus.xml", handler)
