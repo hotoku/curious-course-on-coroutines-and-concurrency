@@ -4,11 +4,12 @@ from copipe import grep
 
 
 fp = open("access-log")
+p = printer()
 follow(
     fp,
     broadcast([
-        grep("python", printer()),
-        grep("ply", printer()),
-        grep("swig", printer())
+        grep("python", p),
+        grep("ply", p),
+        grep("swig", p)
     ])
 )
