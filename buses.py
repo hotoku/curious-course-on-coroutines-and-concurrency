@@ -24,3 +24,18 @@ def buses_to_dicts(target):
                         elif event == "end":
                             break
                     target.send(ret)
+
+
+@coroutine
+def filter_on_filed(field, value, target):
+    while True:
+        bus = (yield)
+        if bus.get(field) == value:
+            target.send(bus)
+
+
+@coroutine
+def location():
+    while True:
+        bus = (yield)
+        print("%(id)s, %(route)s" % bus)
