@@ -10,7 +10,3 @@ def grep(pattern, target):
         line = (yield)
         if pattern in line:
             target.send(line)
-
-
-fp = open("access-log")
-follow(fp, grep("python", printer()))
