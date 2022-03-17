@@ -1,4 +1,7 @@
-import xml.sax
-from basicsax import Handler
+from buses import buses_to_dicts
+from cosax import EventHandler
+from cofollow import printer
+from xml.sax import parse
 
-xml.sax.parse("bus.xml", Handler())
+handler = EventHandler(buses_to_dicts(printer()))
+parse("bus.xml", handler)
