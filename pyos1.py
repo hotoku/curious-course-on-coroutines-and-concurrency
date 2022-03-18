@@ -3,7 +3,7 @@ class Task:
 
     def __init__(self, target):
         Task.taskid += 1
-        self.taskid = Task.taskid
+        self.tid = Task.taskid
         self.target = target
         self.sendval = None
 

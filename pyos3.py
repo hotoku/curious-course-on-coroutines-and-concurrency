@@ -10,16 +10,16 @@ class Scheduler:
 
     def new(self, target):
         newtask = Task(target)
-        self.taskmap[newtask.taskid] = newtask
+        self.taskmap[newtask.tid] = newtask
         self.schedule(newtask)
-        return newtask.taskid
+        return newtask.tid
 
     def schedule(self, task):
         self.ready.put(task)
 
     def exit(self, task):
-        print("task %s terminated" % task.taskid)
-        del self.taskmap[task.taskid]
+        print("task %s terminated" % task.tid)
+        del self.taskmap[task.tid]
 
     def mainloop(self):
         while self.taskmap:

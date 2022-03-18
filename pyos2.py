@@ -10,7 +10,7 @@ class Scheduler:
 
     def new(self, target):
         newtask = Task(target)
-        self.taskmap[newtask.taskid] = newtask
+        self.taskmap[newtask.tid] = newtask
         self.schedule(newtask)
         return newtask.taskid
 
