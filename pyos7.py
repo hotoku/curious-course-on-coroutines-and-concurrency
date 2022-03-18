@@ -61,6 +61,24 @@ class WaitTask(SystemCall):
             self.sched.schedule(self.task)
 
 
+class ReadWait(SystemCall):
+    def __init__(self, f) -> None:
+        self.f = f
+
+    def handle(self):
+        fd = self.f.fileno()
+        self.sched.waitforread(self.task, fd)
+
+
+class WriteWait(SystemCall):
+    def __init__(self, f) -> None:
+        self.f = f
+
+    def handle(self):
+        fd = self.f.fileno()
+        self.sched.waitforwrite(self.task, fd)
+
+
 class Scheduler:
     def __init__(self):
         self.ready = Queue()
@@ -112,8 +130,12 @@ class Scheduler:
         while True:
             if self.ready.empty():
                 self.iopoll(None)
+            else:
+                self.iopoll(0)
+            yield
 
     def mainloop(self):
+        self.new(self.iotask())
         while self.taskmap:
             task = self.ready.get()
             try:
