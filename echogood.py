@@ -7,6 +7,7 @@ def handle_client(client, addr):
     while True:
         yield ReadWait(client)
         data = client.recv(65536)
+        print(data.decode("utf-8"))
         if not data:
             break
         yield WriteWait(client)
