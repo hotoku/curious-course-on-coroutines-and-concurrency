@@ -3,7 +3,7 @@ from pyos6 import WaitTask, Scheduler, GetTid, NewTask, KillTask
 
 def bar():
     tid = yield GetTid()
-    while True:
+    for _ in range(100):
         print("I'm bar", tid)
         yield
 
@@ -13,9 +13,8 @@ def main():
     print(f"main={tid}")
     child = yield NewTask(bar())
     print(f"{child=}")
-    for _ in range(5):
-        yield
-    yield KillTask(child)
+    yield WaitTask(child)
+    print(f"child {child} finished")
 
 
 sch = Scheduler()
