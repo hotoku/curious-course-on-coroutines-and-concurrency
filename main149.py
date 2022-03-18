@@ -1,18 +1,21 @@
-from pyos6 import WaitTask, Scheduler, GetTid, NewTask
+from pyos6 import WaitTask, Scheduler, GetTid, NewTask, KillTask
 
 
 def bar():
     tid = yield GetTid()
-    for _ in range(5):
+    while True:
         print("I'm bar", tid)
         yield
 
 
 def main():
-    myid = yield GetTid()
-    print(myid)
+    tid = yield GetTid()
+    print(f"main={tid}")
     child = yield NewTask(bar())
-    print(child)
+    print(f"{child=}")
+    for _ in range(5):
+        yield
+    yield KillTask(child)
 
 
 sch = Scheduler()
