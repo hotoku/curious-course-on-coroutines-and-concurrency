@@ -3,7 +3,8 @@ from socket import *
 
 
 def handle_client(client, addr):
-    print("Connection from", addr)
+    tid = yield GetTid()
+    print(f"{tid}: Connection from", addr)
     while True:
         yield ReadWait(client)
         data = client.recv(65536)
@@ -13,7 +14,7 @@ def handle_client(client, addr):
         yield WriteWait(client)
         client.send(data)
     client.close()
-    print("Client closed")
+    print(f"{tid}: Client closed")
     yield
 
 
