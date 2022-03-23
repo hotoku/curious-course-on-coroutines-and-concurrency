@@ -354,5 +354,5 @@ while True:
     m = random.randint(0,len(docs)-1)
     t = time.time()
     date = time.strftime("[%d/%b/%Y:%H:%M:%S -0600]",time.localtime(t))
-    print >>f,"%s - - %s %s" % (ips[n],date,docs[m])
+    f.write("%s - - %s %s\n" % (ips[n],date,docs[m]))
     f.flush()
