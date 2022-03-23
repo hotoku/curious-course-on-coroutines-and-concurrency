@@ -1,9 +1,13 @@
+from __future__ import annotations
+
 import select
 from queue import Queue
+from typing import Any
 
 
 class Task:
     taskid = 0
+    sendval: Any
 
     def __init__(self, target):
         Task.taskid += 1
@@ -16,6 +20,9 @@ class Task:
 
 
 class SystemCall:
+    task: Task
+    sched: Scheduler
+
     def handle(self):
         pass
 
@@ -117,7 +124,7 @@ class Scheduler:
 
     def iopoll(self, timeout):
         if self.read_waiting or self.write_waiting:
-            r, w, e = select.select(self.read_waiting,
+            r, w, _ = select.select(self.read_waiting,
                                     self.write_waiting,
                                     [],
                                     timeout)

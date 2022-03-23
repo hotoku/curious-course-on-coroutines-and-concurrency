@@ -1,5 +1,5 @@
 from pyos7 import *
-from socket import *
+from socket import socket, AF_INET, SOCK_STREAM
 
 
 def handle_client(client, addr):
