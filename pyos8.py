@@ -176,3 +176,20 @@ class Scheduler:
                 self.exit(task)
                 continue
             self.schedule(task)
+
+
+def Accept(sock):
+    yield ReadWait(sock)
+    yield sock.accept()
+
+
+def Send(sock, buffer):
+    while buffer:
+        yield WriteWait(sock)
+        len = sock.send(buffer)
+        buffer = buffer[len:]
+
+
+def Recv(sock, maxbytes):
+    yield ReadWait(sock)
+    yield sock.recv(maxbytes)
